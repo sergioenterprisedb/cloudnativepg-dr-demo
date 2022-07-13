@@ -1,0 +1,57 @@
+# Author      : Sergio Romera
+# Created     : 10/03/2022
+# Description : Cluster1 config file for streaming restore
+
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: cluster1
+spec:
+  instances: 3
+  imageName: ###IMAGENAME###
+  
+  superuserSecret:
+    name: superuser-secret
+
+  bootstrap:
+     recovery:
+       backup:
+         name: backup2-test
+  
+  replica:
+    enabled: true
+    source: cluster2
+
+  storage:
+    size: 1Gi
+    
+  externalClusters:
+  - name: cluster2
+    connectionParameters:
+      host: cluster2-rw
+      user: streaming_replica
+    sslKey:
+      name: cluster2-replication
+      key: tls.key
+    sslCert:
+      name: cluster2-replication
+      key: tls.crt
+    sslRootCert:
+      name: cluster2-ca
+      key: ca.crt
+    barmanObjectStore:
+        destinationPath: "###S3_DESTINATIONPATH###"
+        s3Credentials:
+          accessKeyId:
+            name: aws-creds
+            key: ACCESS_KEY_ID
+          secretAccessKey:
+            name: aws-creds
+            key: ACCESS_SECRET_KEY
+          sessionToken:
+            name: aws-creds
+            key: ACCESS_SESSION_TOKEN
+        wal:
+          compression: gzip
+          encryption: AES256
+          maxParallel: 8

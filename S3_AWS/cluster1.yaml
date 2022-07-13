@@ -1,0 +1,47 @@
+# Author      : Sergio Romera
+# Created     : 10/03/2022
+# Description : Cluster1 config file
+
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: cluster1
+spec:
+  instances: 3
+  imageName: ###IMAGENAME###
+
+  superuserSecret:
+    name: superuser-secret
+
+  bootstrap:
+    initdb:
+      database: app
+      owner: app
+      secret:
+        name: app-secret
+
+  storage:
+    size: 1Gi
+  
+  backup:
+    barmanObjectStore:
+      destinationPath: "###S3_DESTINATIONPATH###"
+      s3Credentials:
+        accessKeyId:
+          name: aws-creds
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: aws-creds
+          key: ACCESS_SECRET_KEY
+        sessionToken:
+          name: aws-creds
+          key: ACCESS_SESSION_TOKEN
+      wal:
+          compression: gzip
+          encryption: AES256
+      data:
+        #compression: gzip
+        #encryption: AES256
+        immediateCheckpoint: true
+        #jobs: 2
+    retentionPolicy: "1d"

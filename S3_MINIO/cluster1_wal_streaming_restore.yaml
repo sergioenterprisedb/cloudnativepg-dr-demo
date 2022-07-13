@@ -1,0 +1,51 @@
+# Author      : Sergio Romera
+# Created     : 10/03/2022
+# Description : Cluster1 config file for streaming restore
+
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: cluster1
+spec:
+  instances: 3
+  imageName: ###IMAGENAME###
+  
+  superuserSecret:
+    name: superuser-secret
+
+  bootstrap:
+     recovery:
+       backup:
+         name: backup2-test
+  
+  replica:
+    enabled: true
+    source: cluster2
+
+  storage:
+    size: 1Gi
+    
+  externalClusters:
+  - name: cluster2
+    connectionParameters:
+      host: cluster2-rw
+      user: streaming_replica
+    sslKey:
+      name: cluster2-replication
+      key: tls.key
+    sslCert:
+      name: cluster2-replication
+      key: tls.crt
+    sslRootCert:
+      name: cluster2-ca
+      key: ca.crt
+    barmanObjectStore:
+        destinationPath: "###MINIO_DESTINATIONPATH###"
+        endpointURL: "###MINIO_ENDPOINTURL###"
+        s3Credentials:
+          accessKeyId:
+            name: minio-creds
+            key: MINIO_ACCESS_KEY
+          secretAccessKey:
+            name: minio-creds
+            key: MINIO_SECRET_KEY
