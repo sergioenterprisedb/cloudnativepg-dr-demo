@@ -7,8 +7,11 @@
 - AWS S3 bucket
 
 # Description
-This scripts will give you the availability to do a "[CloudNativePG](https://cloudnative-pg.io)" demo in a kubernetes environment.
-To copy data from one cluster to other, you must use an object storage. This demo has been configured to use MinIO (default configuration) or AWS S3.
+These scripts are based in CloudNativePG project:
+- [CloudNativePG](https://cloudnative-pg.io)
+- [CloudNativePG github](https://github.com/cloudnative-pg/cloudnative-pg)
+The aim is to be able a demo of CloudNativePG in a kubernetes environment.
+To replicate data from one cluster to other, you must use an object storage. This demo has been configured to use MinIO (default configuration) or AWS S3.
 If you have any problem, don't hesitate to contact me: sergio.romera@enterprisedb.com
 
 # MinIO Users
