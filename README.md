@@ -50,10 +50,7 @@ kubectl create secret generic aws-creds \
 
 # Use case 1
 ## Disaster Recovery from S3 backups
-```
-![](./images/cloudnativepg_usecase1.png)
-```
-![test](./images/cloudnativepg_usecase1.gif) [cloudnativepg-1.mov](./images/cloudnativepg_usecase1.mp4)
+![test](./images/cloudnativepg_usecase1.gif)
 ```
 # Create cluster 1
 01_usecase1_create_cluster1.sh                       
@@ -83,7 +80,7 @@ kubectl create secret generic aws-creds \
 
 # Use case 2
 ## Disaster Recovery using wal streaming replication 
-![](./images/cloudnativepg_usecase2.png)
+![test](./images/cloudnativepg_usecase2.gif)
 
 ```
 # Create cluster 1
