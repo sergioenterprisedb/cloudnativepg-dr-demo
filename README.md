@@ -1,6 +1,6 @@
 # Prerequisites
 - Install Docker
-- Install a kubernetes environment (I recommend [k3d](https://k3d.io/v5.3.0/))
+- Install a kubernetes environment (I recommend [k3d](https://k3d.io/v5.3.0/) or [kind](https://kind.sigs.k8s.io))
 - Install [MinIO](https://min.io/download#/kubernetes) Server
 - AWS account (if backups in AWS)
 - Install [AWS CLI (Command-line interface)](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
