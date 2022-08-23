@@ -8,9 +8,9 @@
 
 if [ "${OBJECT_STORAGE}" == "AWS" ]; then
   kubectl create secret generic aws-creds \
-    --from-literal=ACCESS_KEY_ID="<access_key_id>" \
-    --from-literal=ACCESS_SECRET_KEY="<access_secret_key>" \
-    --from-literal=ACCESS_SESSION_TOKEN="<token>"
+    --from-literal=ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" \
+    --from-literal=ACCESS_SECRET_KEY="$AWS_SECRET_ACCESS_KEY" \
+    --from-literal=ACCESS_SESSION_TOKEN="$AWS_SESSION_TOKEN"
 fi
 
 #kubectl apply -f app-secret.yaml
