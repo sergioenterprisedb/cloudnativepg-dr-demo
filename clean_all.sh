@@ -15,6 +15,8 @@ kubectl delete -f app-secret.yaml
 kubectl delete -f superuser-secret.yaml
 kubectl delete secret aws-creds
 kubectl delete secret minio-creds
+kubectl delete secret app-secret
+kubectl delete secret superuser-secret
 
 
 if [ "${OBJECT_STORAGE}" == "MINIO" ]; then
