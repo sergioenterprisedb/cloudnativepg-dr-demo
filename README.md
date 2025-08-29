@@ -43,7 +43,7 @@ To stop MinIO server, click on ctrl+C. Warning, all the data of your WAL files a
 MinIO will be accessible from this URL: http://localhost:9001/login
 
 ```
-MiniIO User: admin
+MinIO User: admin
 MinIO Password: password
 ```
 
