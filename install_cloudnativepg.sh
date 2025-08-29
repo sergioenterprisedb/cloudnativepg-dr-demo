@@ -43,7 +43,8 @@ function check_cluster()
     printf "\rNumber of pods created: $status ${sp:i++%${#sp}:1}"
     #"^[[32m3^[[0m"
     if [ `expr $counter % 5` -eq 0 ]; then
-      status=`kubectl-cnpg status ${cluster_name} | grep 'Ready' | awk '{print $3}' | cut -c6`
+      #status=`kubectl-cnpg status ${cluster_name} | grep 'Ready' | awk '{print $3}' | cut -c6`
+      status=`kubectl get pod | grep "1/1" | grep Running | grep ${cluster_name} | wc -l`
       if [ -z "$status" ]; then
         status=0
       fi
@@ -139,9 +140,9 @@ echo "*** Verify install CloudNativePG Operator ***"
 echo "*********************************************"
 check_deployment
 
-echo "***************************"
-echo "*** Install secrets AWS ***"
-echo "***************************"
+echo "***********************"
+echo "*** Install secrets ***"
+echo "***********************"
 . ./install_secrets.sh
 sleep 2
 

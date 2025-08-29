@@ -9,9 +9,24 @@ metadata:
 spec:
   instances: 3
   imageName: ###IMAGENAME###
+  enableSuperuserAccess: true
+
+  replicationSlots:
+    highAvailability:
+      enabled: true
+
+  postgresql:
+
+    synchronous:
+      method: any
+      number: 1
+      # preferred: Focuses on self-healing and high availability by automatically 
+      # disabling synchronous replication when no replicas are available in the cluster.
+      dataDurability: preferred
   
-  superuserSecret:
-    name: superuser-secret
+    parameters:
+      pg_stat_statements.max: "10000"
+      pg_stat_statements.track: all
 
   bootstrap:
      recovery:
@@ -24,7 +39,10 @@ spec:
 
   storage:
     size: 1Gi
-    
+
+  monitoring:
+   enablePodMonitor: true
+
   externalClusters:
   - name: cluster2
     connectionParameters:

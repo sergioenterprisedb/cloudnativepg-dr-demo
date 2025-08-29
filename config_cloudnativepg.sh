@@ -16,17 +16,17 @@ export S3_MINIO_DIRECTORY="./S3_MINIO"
 export S3_AWS_DIRECTORY="./S3_AWS"
 # MINIO or AWS
 export OBJECT_STORAGE="MINIO"
-export IMAGENAME="ghcr.io/cloudnative-pg/postgresql:14.3"
+export IMAGENAME="ghcr.io/cloudnative-pg/postgresql:16.2"
 # AWS S3
-export S3_DESTINATIONPATH="s3://sergiocnp/cnp/dr"
+export S3_DESTINATIONPATH="s3://xxx"
 export s3_cluster1="s3://sergiocnp/cnp/dr/cluster1"
 export s3_cluster2="s3://sergiocnp/cnp/dr/cluster2"
 
 # MinIO config
 export HOSTNAME=$(ifconfig -a|grep 192|head -n1|awk '{print $2}')
-export MINIO_DESTINATIONPATH="s3://cloudnativepg/"
+export MINIO_DESTINATIONPATH="s3://cnp/"
 export MINIO_PORT=9000
-export MINIO_ENDPOINTURL="http://${HOSTNAME}:${MINIO_PORT}"
+export MINIO_ENDPOINTURL="http://172.17.0.2:9000"
 
 # **************
 # *** Colors ***

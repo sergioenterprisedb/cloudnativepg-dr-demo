@@ -1,3 +1,3 @@
 #!/bin/bash
 
-watch -n 2 -c kubectl-cnpg status cluster1
+watch -n 2 -c kubectl-cnpg --color always status cluster1
