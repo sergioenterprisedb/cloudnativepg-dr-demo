@@ -9,15 +9,33 @@ metadata:
 spec:
   instances: 3
   imageName: ###IMAGENAME###
-  
-  superuserSecret:
-    name: superuser-secret
+  enableSuperuserAccess: true
 
+  replicationSlots:
+    highAvailability:
+      enabled: true
+
+  postgresql:
+
+    synchronous:
+      method: any
+      number: 1
+      # preferred: Focuses on self-healing and high availability by automatically 
+      # disabling synchronous replication when no replicas are available in the cluster.
+      dataDurability: preferred
+  
+    parameters:
+      pg_stat_statements.max: "10000"
+      pg_stat_statements.track: all
+  
   bootstrap:
      recovery:
        backup:
          name: backup-test
   
+  monitoring:
+   enablePodMonitor: true
+
   # Log file replication
   # /!\ Comment replica to start cluster in RW
   #replica:
