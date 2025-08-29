@@ -1,10 +1,16 @@
+[![Generic badge](https://img.shields.io/badge/Version-1.0-<COLOR>.svg)](https://shields.io/)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
+![Maintainer](https://img.shields.io/badge/maintainer-sergio.romera@enterprisedb.com-blue)
 # Prerequisites
-- Install Docker
+- Have a working kubernetes platform up & running.
+- If you don't have it, install Docker.
 - Install a kubernetes environment (I recommend [k3d](https://k3d.io/v5.3.0/) or [kind](https://kind.sigs.k8s.io))
-- Install [MinIO](https://min.io/download#/kubernetes) Server
-- AWS account (if backups in AWS)
-- Install [AWS CLI (Command-line interface)](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
-- AWS S3 bucket
+- Install [MinIO](https://min.io/download#/kubernetes) Server. Script `start_minio_docker_server.sh` can do it for you.
+- Latest CloudNativePG version tested: 1.27.0
+- If you are using AWS:
+  - AWS account (if backups in AWS)
+  - Install [AWS CLI (Command-line interface)](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+  - AWS S3 bucket
 
 # Description
 These scripts are based in CloudNativePG project:
@@ -20,6 +26,8 @@ If you are using MinIO to store backups ans WALs, start MinIO server before to c
 
 ```
 ./start_minio_docker_server.sh
+```
+```
 Unable to find image 'minio/minio:latest' locally
 latest: Pulling from minio/minio
 Digest: sha256:16a0b1807bf9c7f1c2ea8558ae067a0352614e26bd4e6a898688a16d30747e31
@@ -35,23 +43,22 @@ To stop MinIO server, click on ctrl+C. Warning, all the data of your WAL files a
 MinIO will be accessible from this URL: http://localhost:9001/login
 
 ```
-User: admin
-Password: password
+MiniIO User: admin
+MinIO Password: password
 ```
 
 ![](./images/minio_login.png)
 
 # AWS Users
-If will use AWS S3, modify install_secrets.sh file and configure AWS credentials to store backup files in a AWS S3 bucket
+If you use AWS S3, modify `install_secrets.sh` file and configure AWS credentials to store backup files in a AWS S3 bucket
 ```
 ...
 kubectl create secret generic aws-creds \
   --from-literal=ACCESS_KEY_ID=<access_key_id> \
-  --from-literal=ACCESS_SECRET_KEY=<access_secret_key>
+  --from-literal=ACCESS_SECRET_KEY=<access_secret_key> \
+  --from-literal=ACCESS_SESSION_TOKEN="$AWS_SESSION_TOKEN"
 ...
 ```
-
-
 # Use case 1
 ## Disaster Recovery from S3 backups
 ![](./images/cloudnativepg_usecase1.gif)

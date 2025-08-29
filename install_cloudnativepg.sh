@@ -64,12 +64,12 @@ function check_cluster()
 function install_plugin()
 {
   msg "curl -sSfL ${plugging} | sh -s -- -b /usr/local/bin"
-  curl -sSfL ${plugging} | sh -s -- -b /usr/local/bin
+  curl -sSfL ${plugging} | sudo sh -s -- -b /usr/local/bin
 }
 
 function install_cnp_operator()
 {
-  msg "kubectl apply -f ${operator}"
+  msg "kubectl apply --server-side -f ${operator}"
   kubectl apply -f ${operator}
   sleep 2
 }
